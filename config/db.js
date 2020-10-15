@@ -17,7 +17,6 @@ connection.connect(function(err){
   if (!err) {
       console.log(`[${now}] Berhasil terkoneksi dengan database.`);
   } else {
-      console.log(err)
       console.log(`[${now}] Ada yang bermasalah | ${err}`);
   }
 });
