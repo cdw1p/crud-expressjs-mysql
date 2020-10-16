@@ -1,0 +1,44 @@
+version : '3.8'
+
+services:
+   mysql:
+    image: mysql:5.7
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+        - 3306:3306
+    volumes:
+        - sql-data:/var/lib/mysql
+    networks:
+        - cruds-expressapi
+    environment:
+        MYSQL_USER: root
+        MYSQL_PASSWORD: changeme
+        MYSQL_ROOT_PASSWORD: changeme
+        MYSQL_DATABASE: db_cms
+
+   api:
+    build: .
+    restart: always
+    container_name: crud-expressjs-mysql
+    volumes:
+        - ./:/usr/app
+    ports:
+        - 9000:9000
+    depends_on:
+        - mysql
+    networks:
+        - cruds-expressapi
+    environment:
+        - MYSQL_HOST=mysql
+        - MYSQL_USER=root
+        - MYSQL_PASSWORD=changeme
+        - MYSQL_DATABASE=db_cms
+        
+   
+networks:
+    cruds-expressapi:
+        driver: bridge        
+volumes:
+  sql-data:

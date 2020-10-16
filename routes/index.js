@@ -9,6 +9,16 @@ var window = (new JSDOM('')).window;
 var DOMPurify = createDOMPurify(window);
 var connection = require('../config/db');
 
+//health check
+router.get('/health-check', function(req, res, next) {
+  var data = {
+    err: null,
+    message: 'This service is running properly',
+    code:200,
+  }
+  res.send(data)
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var data = {

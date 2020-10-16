@@ -1,13 +1,15 @@
 const mysql = require('mysql');
 const moment = require('moment');
+require('dotenv').config()
 
 var connection = mysql.createConnection({
-    host      : 'localhost',
-    user      : 'root',
-    password  : '',
-    database  : 'db_cms',
-    debug     :  false
+    host      : process.env.MYSQL_HOST,
+    user      : process.env.MYSQL_USER,
+    password  : process.env.MYSQL_PASSWORD,
+    database  : process.env.MYSQL_DATABASE,
+    insecureAuth: true
 });
+
 
 let now = moment().format('YYYY-MM-DD HH:mm:ss');
 
